@@ -1,8 +1,16 @@
-import React, { useState } from "react";
+//import React, { useState } from "react";
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
 //import "./style.css";
 
 
 export const App = () => {
+
+  /*
   // todoリスト
   const [todoText, setTodoText] = useState("");
   const [todoList, setNewTodoList] = React.useState([]);
@@ -42,40 +50,24 @@ export const App = () => {
     }
     setNewTodoList(switchTodoList);
   };
+  */
 
   return (
-    <>
-      <div className="complete-area">
-
-        <table>
-          <thead>
-            <tr>
-              <td>タスク名</td>
-              <td>状態</td>
-            </tr>
-          </thead>
-
-            {
-              <tbody id="todo-body">  
-              {todoList.map((todo, index) => (
-                <tr>
-                  <td>{todo.name}</td>
-                  <td><button onClick={() => onClickSwitch(index)}>{todo.status}</button></td>
-                  <td><button onClick={() => onClickDelete(index)}>削除</button></td>
-                </tr>
-              ))}
-              </tbody>
-            }        
-
-        </table>
-      </div>
-
-      <div className="add-todo">
-        <input value={todoText} onChange={onChangeTodoText} />
-        <button onClick={onClickAdd}>追加</button>
-      </div>
-
-    </>
-
+    <Box sx={{ width: '100%', maxWidth: 620, bgcolor: 'background.paper' }}>
+      <nav aria-label="secondary mailbox folders">
+        <List>
+          <ListItem disablePadding>
+            <ListItemButton>
+              <ListItemText primary="Trash" />
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemButton component="a" href="#simple-list">
+              <ListItemText primary="Spam" />
+            </ListItemButton>
+          </ListItem>
+        </List>
+      </nav>
+    </Box>
   );
 }
