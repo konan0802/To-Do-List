@@ -6,20 +6,6 @@ export const App = () => {
   // todoリスト
   const [todoText, setTodoText] = useState("");
   const [todoList, setNewTodoList] = React.useState([]);
-  const [filteredTodoList, setFilteredTodoList] = React.useState([]);
-  const [radio, setRadio] = React.useState('all');
-
-  // ラジオボタン更新
-  const handleChange = (event) => {
-    setRadio(event.target.value);
-    if (event.target.value === "incomplete") {
-      const incompleteTodoList = [...todoList].filter((todo) => todo.status === "作業中");
-      setFilteredTodoList(incompleteTodoList);
-    } else if (event.target.value === "complete") {
-      const completeTodoList = [...todoList].filter((todo) => todo.status === "完了");
-      setFilteredTodoList(completeTodoList);
-    } return
-  }
 
   // インプットフォームの状態を管理
   const onChangeTodoText = (event) => {
@@ -60,21 +46,6 @@ export const App = () => {
   return (
     <>
       <div className="complete-area">
-        <label>
-          <input type="radio" value="all" onChange={handleChange} checked={radio === 'all'} />
-          すべて
-        </label>
-
-        <label>
-          <input type="radio" value="incomplete" onChange={handleChange} checked={radio === 'incomplete'} />
-          作業中
-        </label>
-
-        <label>
-          <input type="radio" value="complete" onChange={handleChange} checked={radio === 'complete'} />
-          完了
-        </label>
-
 
         <h1>ToDoリスト</h1>
         <table>
@@ -87,20 +58,8 @@ export const App = () => {
           </thead>
 
             {
-              radio === "all"?
               <tbody id="todo-body">  
               {todoList.map((todo, index) => (
-                <tr>
-                  <td>{index}</td>
-                  <td>{todo.comment}</td>
-                  <td><button onClick={() => onClickSwitch(index)}>{todo.status}</button></td>
-                  <td><button onClick={() => onClickDelete(index)}>削除</button></td>
-                </tr>
-              ))}
-              </tbody>
-              :
-              <tbody id="todo-body">  
-              {filteredTodoList.map((todo, index) => (
                 <tr>
                   <td>{index}</td>
                   <td>{todo.comment}</td>
