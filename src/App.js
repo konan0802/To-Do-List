@@ -16,7 +16,7 @@ export const App = () => {
   const onClickAdd = () => {
     if (todoText === "") return;
     const newTodo = {
-      comment: todoText,
+      name: todoText,
       status: "作業中"
     }
     // DOMが更新される
@@ -47,12 +47,10 @@ export const App = () => {
     <>
       <div className="complete-area">
 
-        <h1>ToDoリスト</h1>
         <table>
           <thead>
             <tr>
-              <td >ID</td>
-              <td>コメント</td>
+              <td>タスク名</td>
               <td>状態</td>
             </tr>
           </thead>
@@ -61,8 +59,7 @@ export const App = () => {
               <tbody id="todo-body">  
               {todoList.map((todo, index) => (
                 <tr>
-                  <td>{index}</td>
-                  <td>{todo.comment}</td>
+                  <td>{todo.name}</td>
                   <td><button onClick={() => onClickSwitch(index)}>{todo.status}</button></td>
                   <td><button onClick={() => onClickDelete(index)}>削除</button></td>
                 </tr>
@@ -73,7 +70,6 @@ export const App = () => {
         </table>
       </div>
 
-      <h2>新規タスクの追加</h2>
       <div className="add-todo">
         <input value={todoText} onChange={onChangeTodoText} />
         <button onClick={onClickAdd}>追加</button>
