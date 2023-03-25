@@ -53,12 +53,12 @@ export const App = () => {
   */
 
   const [items, setItems] = useState([
-    { id: "1", text: "初期1行目", order: 0 },
-    { id: "2", text: "初期2行目", order: 1 },
-    { id: "3", text: "初期3行目", order: 2 },
-    { id: "4", text: "初期4行目", order: 3 },
-    { id: "5", text: "初期5行目", order: 4 },
-    { id: "6", text: "初期6行目", order: 5 }
+    { id: "1", name: "初期1行目", est: 5, passed: 2, order: 0 },
+    { id: "2", name: "初期2行目", est: 5, passed: 2, order: 1 },
+    { id: "3", name: "初期3行目", est: 5, passed: 2, order: 2 },
+    { id: "4", name: "初期4行目", est: 5, passed: 2, order: 3 },
+    { id: "5", name: "初期5行目", est: 5, passed: 2, order: 4 },
+    { id: "6", name: "初期6行目", est: 5, passed: 2, order: 5 }
   ]);
 
   const onDrop = ({ removedIndex, addedIndex }) => {
@@ -70,22 +70,27 @@ export const App = () => {
   };
 
   return (
-    <Box style={{ width: '100%', maxWidth: 800, bgcolor: "#2C3333", marginLeft: 100, marginTop: 100}}>
-      <nav aria-label="secondary mailbox folders">
-        
-        <List>
-          <Container onDrop={onDrop}>
-            {items.map(({ id, text }) => (
-              <Draggable key={id}>
-                <ListItem style={{ border: "solid 1px", background: "#A5C9CA" }}>
-                  <ListItemText primary={text} />
-                </ListItem>
-              </Draggable>
-            ))}
-          </Container>
-        </List>
+    <>
 
-      </nav>
-    </Box>
+      <Box style={{ width: '86%', bgcolor: "#2C3333", marginLeft: '7%', marginTop: 100}}>
+        <nav aria-label="secondary mailbox folders">
+          <List>
+            <Container onDrop={onDrop}>
+              {items.map(({ id, name, est, passed }) => (
+                <Draggable key={id}>
+                  <ListItem style={{marginBottom: '9px', borderRadius: '3px', background: "#A5C9CA"}}>
+                    <ListItemText primary={name} style={{width: '70%'}} />
+                    <ListItemText primary="｜" />
+                    <ListItemText primary={est + " h"} />
+                    <ListItemText primary="｜" />
+                    <ListItemText primary={passed + " h"} />
+                  </ListItem>
+                </Draggable>
+              ))}
+            </Container>
+          </List>
+        </nav>
+      </Box>
+    </>
   );
 }
