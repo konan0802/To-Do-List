@@ -72,23 +72,23 @@ export const App = () => {
   return (
     <>
       <div>
-        <Box style={{height: 30, width: '62%', marginLeft: '8%',                   borderBottom: "solid 3px #395B64", marginTop: 100, marginBottom: 8, float: "left", fontSize: 16, fontWeight: "bold", textAlign: "center", color: "#395B64"}}>タスク名</Box>
-        <Box style={{height: 30, width: '9%', marginRight: '2%', marginLeft: '2%', borderBottom: "solid 3px #395B64", marginTop: 100, marginBottom: 8, float: "left", fontSize: 16, fontWeight: "bold", textAlign: "center", color: "#395B64"}}>見積</Box>
-        <Box style={{height: 30, width: '9%', marginRight: '8%',                   borderBottom: "solid 3px #395B64", marginTop: 100, marginBottom: 8, float: "left", fontSize: 16, fontWeight: "bold", textAlign: "center", color: "#395B64"}}>実績</Box>
+        <Box style={{height: 30, width: '60.3%', marginLeft: '9%',                   borderBottom: "solid 3px #395B64", marginTop: 100, marginBottom: 8, float: "left", fontSize: 16, fontWeight: "bold", textAlign: "center", color: "#395B64"}}>タスク名</Box>
+        <Box style={{height: 30, width: '8.8%', marginRight: '2%', marginLeft: '2%', borderBottom: "solid 3px #395B64", marginTop: 100, marginBottom: 8, float: "left", fontSize: 16, fontWeight: "bold", textAlign: "center", color: "#395B64"}}>見積</Box>
+        <Box style={{height: 30, width: '8.8%', marginRight: '9%',                   borderBottom: "solid 3px #395B64", marginTop: 100, marginBottom: 8, float: "left", fontSize: 16, fontWeight: "bold", textAlign: "center", color: "#395B64"}}>実績</Box>
       </div>
 
-      <Box style={{ width: '86%', bgcolor: "#2C3333", marginLeft: '7%', marginTop: 5, clear: "both"}}>
+      <Box style={{bgcolor: "#2C3333", marginLeft: '8.5%', marginRight: '8.5%', marginTop: 5, clear: "both"}}>
         <nav aria-label="secondary mailbox folders">
           <List>
             <Container onDrop={onDrop}>
               {items.map(({ id, name, est, passed }) => (
                 <Draggable key={id}>
                   <ListItem style={{marginBottom: '9px', borderRadius: '3px', background: "#A5C9CA"}}>
-                    <ListItemText primary={name} style={{width: '70%'}} />
-                    <ListItemText primary="｜" />
-                    <ListItemText primary={est + " h"} />
-                    <ListItemText primary="｜" />
-                    <ListItemText primary={passed + " h"} />
+                    <ListItemText primary={name}          style={{width: '72.5%'}} />
+                    <ListItemText primary="｜"            style={{textAlign: "center", marginRight: "auto", marginLeft: "auto"}} />
+                    <ListItemText primary={est + " h"}    style={{textAlign: "center", width: '9%'}} />
+                    <ListItemText primary="｜"            style={{textAlign: "center", marginRight: "auto", marginLeft: "auto"}} />
+                    <ListItemText primary={passed + " h"} style={{textAlign: "center", width: '9%'}} />
                   </ListItem>
                 </Draggable>
               ))}
