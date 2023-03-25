@@ -55,11 +55,14 @@ export const App = () => {
   const [items, setItems] = useState([
     { id: "1", name: "初期1行目", est: 5, passed: 2, order: 0 },
     { id: "2", name: "初期2行目", est: 5, passed: 2, order: 1 },
-    { id: "3", name: "初期3行目", est: 12, passed: 2, order: 2 },
+    { id: "3", name: "初期3行目", est: 10, passed: 2, order: 2 },
     { id: "4", name: "初期4行目", est: 5, passed: 2, order: 3 },
     { id: "5", name: "初期5行目", est: 5, passed: 2, order: 4 },
     { id: "6", name: "初期6行目", est: 5, passed: 2, order: 5 }
   ]);
+
+  const estTotal = items.reduce((sum, i) => sum + i.est, 0);
+  const passedTotal = items.reduce((sum, i) => sum + i.passed, 0);
 
   const onDrop = ({ removedIndex, addedIndex }) => {
     const updater = (items) =>
@@ -96,6 +99,13 @@ export const App = () => {
           </List>
         </nav>
       </Box>
+
+      <div>
+        <Box style={{height: 32, width: '60.3%', marginLeft: '9%',                        marginTop: 30, marginBottom: 8, float: "left", fontSize: 16, fontWeight: "bold", textAlign: "right", color: "#E7F6F2"}}>合計：</Box>
+        <Box style={{height: 32, width: '8.6%',  marginLeft: '2%',                        marginTop: 30, marginBottom: 8, float: "left", fontSize: 16, fontWeight: "bold", textAlign: "center", color: "#E7F6F2"}}>{estTotal} h</Box>
+        <Box style={{height: 32, width: '1%',    marginLeft: '0.6%', marginRight: '0.6%', marginTop: 30, marginBottom: 8, float: "left", fontSize: 16, fontWeight: "bold", textAlign: "center", color: "#E7F6F2"}}> / </Box>
+        <Box style={{height: 32, width: '8.4%',  marginRight: '9%',                       marginTop: 30, marginBottom: 8, float: "left", fontSize: 16, fontWeight: "bold", textAlign: "center", color: "#E7F6F2"}}>{passedTotal} h</Box>
+      </div>
     </>
   );
 }
