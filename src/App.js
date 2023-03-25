@@ -55,7 +55,7 @@ export const App = () => {
   const [items, setItems] = useState([
     { id: "1", name: "初期1行目", est: 5, passed: 2, order: 0 },
     { id: "2", name: "初期2行目", est: 5, passed: 2, order: 1 },
-    { id: "3", name: "初期3行目", est: 5, passed: 2, order: 2 },
+    { id: "3", name: "初期3行目", est: 12, passed: 2, order: 2 },
     { id: "4", name: "初期4行目", est: 5, passed: 2, order: 3 },
     { id: "5", name: "初期5行目", est: 5, passed: 2, order: 4 },
     { id: "6", name: "初期6行目", est: 5, passed: 2, order: 5 }
@@ -71,8 +71,13 @@ export const App = () => {
 
   return (
     <>
+      <div>
+        <Box style={{height: 30, width: '62%', marginLeft: '8%',                   borderBottom: "solid 3px #395B64", marginTop: 100, marginBottom: 8, float: "left", fontSize: 16, fontWeight: "bold", textAlign: "center", color: "#395B64"}}>タスク名</Box>
+        <Box style={{height: 30, width: '9%', marginRight: '2%', marginLeft: '2%', borderBottom: "solid 3px #395B64", marginTop: 100, marginBottom: 8, float: "left", fontSize: 16, fontWeight: "bold", textAlign: "center", color: "#395B64"}}>見積</Box>
+        <Box style={{height: 30, width: '9%', marginRight: '8%',                   borderBottom: "solid 3px #395B64", marginTop: 100, marginBottom: 8, float: "left", fontSize: 16, fontWeight: "bold", textAlign: "center", color: "#395B64"}}>実績</Box>
+      </div>
 
-      <Box style={{ width: '86%', bgcolor: "#2C3333", marginLeft: '7%', marginTop: 100}}>
+      <Box style={{ width: '86%', bgcolor: "#2C3333", marginLeft: '7%', marginTop: 5, clear: "both"}}>
         <nav aria-label="secondary mailbox folders">
           <List>
             <Container onDrop={onDrop}>
