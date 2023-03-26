@@ -1,56 +1,16 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import Box from '@mui/material/Box';
 import { Container, Draggable } from "react-smooth-dnd";
 import {arrayMoveImmutable} from 'array-move';
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
+import TextField from '@mui/material/TextField';
+import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import "./App.css";
 
 
 export const App = () => {
-
-  /*
-  // todoリスト
-  const [todoText, setTodoText] = useState("");
-  const [todoList, setNewTodoList] = React.useState([]);
-
-  // インプットフォームの状態を管理
-  const onChangeTodoText = (event) => {
-    setTodoText(event.target.value);
-  };
-
-  // 追加ボタンを押すとタスクがToDoリストに追加される
-  const onClickAdd = () => {
-    if (todoText === "") return;
-    const newTodo = {
-      name: todoText,
-      status: "作業中"
-    }
-    // DOMが更新される
-    todoList.push(newTodo);
-    // 入力フォーム内を""にする
-    setTodoText("");
-  };
-
-  // 削除
-  const onClickDelete = (index) => {
-    const deletedTodoList = [...todoList];
-    deletedTodoList.splice(index, 1);
-    setNewTodoList(deletedTodoList);
-  };
-
-  // statusの切り替え
-  const onClickSwitch = (index) => {
-    const switchTodoList = [...todoList];
-    if (switchTodoList[index].status === "作業中") {
-      switchTodoList[index].status = "完了";
-    } else if (switchTodoList[index].status === "完了") {
-      switchTodoList[index].status = "作業中";
-    }
-    setNewTodoList(switchTodoList);
-  };
-  */
 
   const [tasks, setTasks] = useState([
     { id: 1, name: "初期1行目", est: 5, passed: 2, order: 0 },
@@ -110,7 +70,8 @@ export const App = () => {
               {tasks.map(({ id, name, est, passed }) => (
                 <Draggable key={id}>
                   <ListItem style={{marginBottom: '9px', borderRadius: '3px', background: "#A5C9CA"}}>
-                    <ListItemText primary={name}          style={{width: '72.8%'}} />
+                    <DragIndicatorIcon style={{marginRight: '1%'}} />
+                    <ListItemText primary={name}          style={{width: '69.8%'}} />
                     <ListItemText primary="｜"            style={{textAlign: "center", marginRight: "auto", marginLeft: "auto"}} />
                     <ListItemText primary={est + " h"}    style={{textAlign: "center", width: '9.6%'}} />
                     <ListItemText primary="｜"            style={{textAlign: "center", marginRight: "auto", marginLeft: "auto"}} />
