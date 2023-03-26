@@ -66,11 +66,11 @@ export const App = () => {
       <Box style={{bgcolor: "#2C3333", marginLeft: '8.5%', marginRight: '8.5%', marginTop: 5, clear: "both"}}>
         <nav aria-label="secondary mailbox folders">
           <List>
-            <Container onDrop={onDrop}>
+            <Container dragHandleSelector=".dragHandleSelector" onDrop={onDrop}>
               {tasks.map(({ id, name, est, passed }) => (
                 <Draggable key={id}>
                   <ListItem style={{marginBottom: '9px', borderRadius: '3px', background: "#A5C9CA"}}>
-                    <DragIndicatorIcon style={{marginRight: '1%'}} />
+                    <DragIndicatorIcon style={{marginRight: '1%'}} className="dragHandleSelector" />
                     <ListItemText primary={name}          style={{width: '69.8%'}} />
                     <ListItemText primary="｜"            style={{textAlign: "center", marginRight: "auto", marginLeft: "auto"}} />
                     <ListItemText primary={est + " h"}    style={{textAlign: "center", width: '9.6%'}} />
