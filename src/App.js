@@ -87,9 +87,9 @@ export const App = () => {
               {items.map(({ id, name, est, passed }) => (
                 <Draggable key={id}>
                   <ListItem style={{marginBottom: '9px', borderRadius: '3px', background: "#A5C9CA"}}>
-                    <ListItemText primary={name}          style={{width: '72.5%'}} />
+                    <ListItemText primary={name}          style={{width: '72.8%'}} />
                     <ListItemText primary="｜"            style={{textAlign: "center", marginRight: "auto", marginLeft: "auto"}} />
-                    <ListItemText primary={est + " h"}    style={{textAlign: "center", width: '9%'}} />
+                    <ListItemText primary={est + " h"}    style={{textAlign: "center", width: '9.6%'}} />
                     <ListItemText primary="｜"            style={{textAlign: "center", marginRight: "auto", marginLeft: "auto"}} />
                     <ListItemText primary={passed + " h"} style={{textAlign: "center", width: '9%'}} />
                   </ListItem>
@@ -102,9 +102,9 @@ export const App = () => {
 
       <div>
         <Box style={{height: 32, width: '60.3%', marginLeft: '9%',                        marginTop: 30, marginBottom: 8, float: "left", fontSize: 16, fontWeight: "bold", textAlign: "right", color: "#E7F6F2"}}>合計：</Box>
-        <Box style={{height: 32, width: '8.6%',  marginLeft: '2%',                        marginTop: 30, marginBottom: 8, float: "left", fontSize: 16, fontWeight: "bold", textAlign: "center", color: "#E7F6F2"}}>{estTotal} h</Box>
+        <Box style={{height: 32, width: '8.8%',  marginLeft: '2%',                        marginTop: 30, marginBottom: 8, float: "left", fontSize: 16, fontWeight: "bold", textAlign: "center", color: "#E7F6F2"}}>{estTotal} h</Box>
         <Box style={{height: 32, width: '1%',    marginLeft: '0.6%', marginRight: '0.6%', marginTop: 30, marginBottom: 8, float: "left", fontSize: 16, fontWeight: "bold", textAlign: "center", color: "#E7F6F2"}}> / </Box>
-        <Box style={{height: 32, width: '8.4%',  marginRight: '9%',                       marginTop: 30, marginBottom: 8, float: "left", fontSize: 16, fontWeight: "bold", textAlign: "center", color: "#E7F6F2"}}>{passedTotal} h</Box>
+        <Box style={{height: 32, width: '8%',  marginRight: '9%',                       marginTop: 30, marginBottom: 8, float: "left", fontSize: 16, fontWeight: "bold", textAlign: "center", color: "#E7F6F2"}}>{passedTotal} h</Box>
       </div>
     </>
   );
