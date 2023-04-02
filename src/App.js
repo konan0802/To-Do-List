@@ -15,12 +15,12 @@ import "./App.css";
 export const App = () => {
 
   const [tasks, setTasks] = useState([
-    { id: 1, name: "初期1行目", est: 5, passed: 2, order: 0 },
-    { id: 2, name: "初期2行目", est: 5, passed: 2, order: 1 },
-    { id: 3, name: "初期3行目", est: 10, passed: 2, order: 2 },
-    { id: 4, name: "初期4行目", est: 5, passed: 2, order: 3 },
-    { id: 5, name: "初期5行目", est: 5, passed: 2, order: 4 },
-    { id: 6, name: "初期6行目", est: 5, passed: 2, order: 5 }
+    { id: 1, type: 0, name: "初期1行目", est: 5, passed: 2, order: 0 },
+    { id: 2, type: 0, name: "初期2行目", est: 5, passed: 2, order: 1 },
+    { id: 3, type: 1, name: "初期2行目の子", est: 10, passed: 2, order: 2 },
+    { id: 4, type: 1, name: "初期2行目の子", est: 5, passed: 2, order: 3 },
+    { id: 5, type: 0, name: "初期5行目", est: 5, passed: 2, order: 4 },
+    { id: 6, type: 0, name: "初期6行目", est: 5, passed: 2, order: 5 }
   ]);
 
   const estTotal = tasks.reduce((sum, i) => sum + i.est, 0);
@@ -95,15 +95,15 @@ export const App = () => {
         <nav aria-label="secondary mailbox folders">
           <List>
             <Container dragHandleSelector=".dragHandleSelector" onDrop={onDrop}>
-              {tasks.map(({ id, name, est, passed }) => (
+              {tasks.map(({ id, type, name, est, passed }) => (
                 <Draggable key={id}>
-                    <ListItem className="taskEach" id={id} style={{marginBottom: '9px', borderRadius: '3px', background: "#A5C9CA"}}>
+                    <ListItem className={(type === 0) ? "taskParent" : "taskChild"} id={id}>
                       <DragIndicatorIcon style={{marginRight: '1%'}} className="dragHandleSelector" />
-                      <Textarea defaultValue={name} placeholder="Task Name" className="taskName" />
+                      <Textarea defaultValue={name} placeholder="Task Name" className={(type === 0) ? "taskNameParent" : "taskNameChild"} />
                       <ListItemText primary="｜"                            style={{textAlign: "center", marginRight: "auto", marginLeft: "auto"}} />
-                      <Textarea defaultValue={est} className="taskEst" />
+                      <Textarea defaultValue={est} className={(type === 0) ? "taskEstParent" : "taskEstChild"} />
                       <ListItemText primary="｜"                            style={{textAlign: "center", marginRight: "auto", marginLeft: "auto"}} />
-                      <ListItemText primary={passed}                 style={{textAlign: "center", width: '9%'}} />
+                      <ListItemText primary={passed} className={(type === 0) ? "taskPassedParent" : "taskPassedChild"} />
                     </ListItem>
                 </Draggable>
               ))}

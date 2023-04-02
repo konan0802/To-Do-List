@@ -4,7 +4,21 @@ body {
     background-color: #2C3333;
 }
 
-.taskName {
+.taskParent {
+    margin-bottom: 9px;
+    border-radius: 3px;
+    background: #A5C9CA;
+}
+
+.taskChild {
+    width: 93% !important;
+    margin-left: 80px;
+    margin-bottom: 9px;
+    border-radius: 3px;
+    background: #A5C9CA;
+}
+
+.taskNameParent {
     width: 69.8%;
     background: #A5C9CA !important;
     border-color: #A5C9CA !important;
@@ -12,7 +26,15 @@ body {
     --Textarea-focusedThickness: var(--joy-focus-thickness, 0.5px) !important;
 }
 
-.taskEst {
+.taskNameChild {
+    width: 67.3%;
+    background: #A5C9CA !important;
+    border-color: #A5C9CA !important;
+    --Textarea-focusedHighlight: #395B64 !important;
+    --Textarea-focusedThickness: var(--joy-focus-thickness, 0.5px) !important;
+}
+
+.taskEstParent {
     width: 9.6%;
     background: #A5C9CA !important;
     border-color: #A5C9CA !important;
@@ -20,6 +42,28 @@ body {
     --Textarea-focusedThickness: var(--joy-focus-thickness, 0.5px) !important;
 }
 
-.taskEst textarea {
+.taskEstParent textarea {
     text-align: center;
+}
+
+.taskEstChild {
+    width: 9.6%;
+    background: #A5C9CA !important;
+    border-color: #A5C9CA !important;
+    --Textarea-focusedHighlight: #395B64 !important;
+    --Textarea-focusedThickness: var(--joy-focus-thickness, 0.5px) !important;
+}
+
+.taskEstChild textarea {
+    text-align: center;
+}
+
+.taskPassedParent {
+    text-align: center;
+    width: 9%;
+}
+
+.taskPassedChild {
+    text-align: center;
+    width: 8.7%;
 }
