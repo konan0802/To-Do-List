@@ -15,7 +15,7 @@ body {
     margin-left: 80px;
     margin-bottom: 9px;
     border-radius: 3px;
-    background: #A5C9CA;
+    background: #E7F6F2;
 }
 
 .taskNameParent {
@@ -28,8 +28,8 @@ body {
 
 .taskNameChild {
     width: 67.3%;
-    background: #A5C9CA !important;
-    border-color: #A5C9CA !important;
+    background: #E7F6F2 !important;
+    border-color: #E7F6F2 !important;
     --Textarea-focusedHighlight: #395B64 !important;
     --Textarea-focusedThickness: var(--joy-focus-thickness, 0.5px) !important;
 }
@@ -48,8 +48,8 @@ body {
 
 .taskEstChild {
     width: 9.6%;
-    background: #A5C9CA !important;
-    border-color: #A5C9CA !important;
+    background: #E7F6F2 !important;
+    border-color: #E7F6F2 !important;
     --Textarea-focusedHighlight: #395B64 !important;
     --Textarea-focusedThickness: var(--joy-focus-thickness, 0.5px) !important;
 }
