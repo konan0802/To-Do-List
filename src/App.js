@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Box from '@mui/material/Box';
 import { Container, Draggable } from "react-smooth-dnd";
 import {arrayMoveImmutable} from 'array-move';
@@ -65,6 +65,15 @@ export const App = () => {
     addTasks()
   })
 
+  useEffect(() => {
+    var triggerTasks = Array.from( document.getElementsByClassName('taskEach'));
+    triggerTasks.forEach(function(target) {
+      target.addEventListener('contextmenu', e => {
+        console.log(e.currentTarget.id);
+      })
+    });
+  });
+
   return (
     <>
       <div>
@@ -79,7 +88,7 @@ export const App = () => {
             <Container dragHandleSelector=".dragHandleSelector" onDrop={onDrop}>
               {tasks.map(({ id, name, est, passed }) => (
                 <Draggable key={id}>
-                    <ListItem style={{marginBottom: '9px', borderRadius: '3px', background: "#A5C9CA"}}>
+                    <ListItem className="taskEach" id={id} style={{marginBottom: '9px', borderRadius: '3px', background: "#A5C9CA"}}>
                       <DragIndicatorIcon style={{marginRight: '1%'}} className="dragHandleSelector" />
                       <Textarea defaultValue={name} placeholder="Task Name" className="taskName" />
                       <ListItemText primary="｜"                            style={{textAlign: "center", marginRight: "auto", marginLeft: "auto"}} />
