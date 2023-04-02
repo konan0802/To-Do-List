@@ -23,10 +23,30 @@ export const App = () => {
     { id: 6, type: 0, name: "初期6行目", est: 5, passed: 2, order: 5 }
   ]);
 
-  const estTotal = tasks.reduce((sum, i) => sum + i.est, 0);
-  const passedTotal = tasks.reduce((sum, i) => sum + i.passed, 0);
+  let estTotal = tasks.reduce((sum, i) => sum + i.est, 0);
+  let passedTotal = tasks.reduce((sum, i) => sum + i.passed, 0);
 
-    // タスク一覧における最後のidを取得
+  // タスク名の更新
+  const updateTaskName = (id, name) => {
+    for (var i = 0, len = tasks.length; i < len; i++) {
+      // idの最大値
+      if (tasks[i].id === id) {
+        tasks[i].name = name;
+      };
+    } 
+  }
+
+  // タスクタイプの更新
+  const updateTaskType = (id, type) => {
+    for (var i = 0, len = tasks.length; i < len; i++) {
+      // idの最大値
+      if (tasks[i].id === id) {
+        tasks[i].type = type;
+      };
+    } 
+  }
+
+  // タスク一覧における最後のidを取得
   const culcLastId = () => {
     let lastId = 0;
     for (var i = 0, len = tasks.length; i < len; i++) {
