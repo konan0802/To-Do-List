@@ -26,6 +26,7 @@ export const App = () => {
   const estTotal = tasks.reduce((sum, i) => sum + i.est, 0);
   const passedTotal = tasks.reduce((sum, i) => sum + i.passed, 0);
 
+    // タスク一覧における最後のidを取得
   const culcLastId = () => {
     let lastId = 0;
     for (var i = 0, len = tasks.length; i < len; i++) {
@@ -37,6 +38,7 @@ export const App = () => {
     return lastId;
   }
 
+  // タスク一覧における最後のorderを取得
   const culcLastOrder = () => {
     let lastOrder = 0;
     for (var i = 0, len = tasks.length; i < len; i++) {
@@ -48,10 +50,12 @@ export const App = () => {
     return lastOrder;
   }
 
+  // タスクの追加を行うメソッド
   const addTasks = () => {
     setTasks([...tasks, { id: culcLastId()+1, name: "", est: 0, passed: 0, order: culcLastOrder()+1 }])
   };
 
+  // タスクのドラッグ＆ドロップを管理
   const onDrop = ({ removedIndex, addedIndex }) => {
     const updater = (tasks) =>
       arrayMoveImmutable(tasks, removedIndex, addedIndex).map((item, idx) => {
@@ -60,16 +64,22 @@ export const App = () => {
       setTasks(updater);
   };
 
+  // タスクを右クリックした際のメニューを管理
+  const rightClickOnTask = (id) => {
+    console.log(id);
+  }
+
   document.addEventListener('dblclick', e => {
     if(e.target.classList.value !== "") return;
     addTasks()
   })
 
+  // レンダリング後の挙動を管理
   useEffect(() => {
     var triggerTasks = Array.from( document.getElementsByClassName('taskEach'));
     triggerTasks.forEach(function(target) {
       target.addEventListener('contextmenu', e => {
-        console.log(e.currentTarget.id);
+        rightClickOnTask(e.currentTarget.id);
       })
     });
   });
