@@ -5,8 +5,10 @@ import {arrayMoveImmutable} from 'array-move';
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import TextField from '@mui/material/TextField';
+import Textarea from '@mui/joy/Textarea';
+//import TextField from '@mui/joy/TextField';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
+
 import "./App.css";
 
 
@@ -24,21 +26,30 @@ export const App = () => {
   const estTotal = tasks.reduce((sum, i) => sum + i.est, 0);
   const passedTotal = tasks.reduce((sum, i) => sum + i.passed, 0);
 
-  const addTasks = () => {
+  const culcLastId = () => {
     let lastId = 0;
-    let lastOrder = 0;
     for (var i = 0, len = tasks.length; i < len; i++) {
       // idの最大値
       if (tasks[i].id > lastId) {
         lastId = tasks[i].id;
       };
-      // orderの最大値
+    }
+    return lastId;
+  }
+
+  const culcLastOrder = () => {
+    let lastOrder = 0;
+    for (var i = 0, len = tasks.length; i < len; i++) {
+      // idの最大値
       if (tasks[i].order > lastOrder) {
         lastOrder = tasks[i].order;
       };
     }
+    return lastOrder;
+  }
 
-    setTasks([...tasks, { id: lastId+1, name: "", est: 0, passed: 0, order: lastOrder+1 }])
+  const addTasks = () => {
+    setTasks([...tasks, { id: culcLastId()+1, name: "", est: 0, passed: 0, order: culcLastOrder()+1 }])
   };
 
   const onDrop = ({ removedIndex, addedIndex }) => {
@@ -69,14 +80,14 @@ export const App = () => {
             <Container dragHandleSelector=".dragHandleSelector" onDrop={onDrop}>
               {tasks.map(({ id, name, est, passed }) => (
                 <Draggable key={id}>
-                  <ListItem style={{marginBottom: '9px', borderRadius: '3px', background: "#A5C9CA"}}>
-                    <DragIndicatorIcon style={{marginRight: '1%'}} className="dragHandleSelector" />
-                    <ListItemText primary={name}          style={{width: '69.8%'}} />
-                    <ListItemText primary="｜"            style={{textAlign: "center", marginRight: "auto", marginLeft: "auto"}} />
-                    <ListItemText primary={est + " h"}    style={{textAlign: "center", width: '9.6%'}} />
-                    <ListItemText primary="｜"            style={{textAlign: "center", marginRight: "auto", marginLeft: "auto"}} />
-                    <ListItemText primary={passed + " h"} style={{textAlign: "center", width: '9%'}} />
-                  </ListItem>
+                    <ListItem style={{marginBottom: '9px', borderRadius: '3px', background: "#A5C9CA"}}>
+                      <DragIndicatorIcon style={{marginRight: '1%'}} className="dragHandleSelector" />
+                      <Textarea defaultValue={name} placeholder="Task Name" style={{width: '69.8%', background: "#A5C9CA", borderColor: "#A5C9CA", "--Textarea-focusedHighlight": "#395B64", "--Textarea-focusedThickness": "var(--joy-focus-thickness, 0.5px)"}} />
+                      <ListItemText primary="｜"                            style={{textAlign: "center", marginRight: "auto", marginLeft: "auto"}} />
+                      <ListItemText primary={est + " h"}                    style={{textAlign: "center", width: '9.6%'}} />
+                      <ListItemText primary="｜"                            style={{textAlign: "center", marginRight: "auto", marginLeft: "auto"}} />
+                      <ListItemText primary={passed + " h"}                 style={{textAlign: "center", width: '9%'}} />
+                    </ListItem>
                 </Draggable>
               ))}
             </Container>
