@@ -49,7 +49,7 @@ export const App = () => {
   }
 
   const addTasks = () => {
-    setTasks([...tasks, { id: culcLastId()+1, name: "", est: null, passed: 0, order: culcLastOrder()+1 }])
+    setTasks([...tasks, { id: culcLastId()+1, name: "", est: 0, passed: 0, order: culcLastOrder()+1 }])
   };
 
   const onDrop = ({ removedIndex, addedIndex }) => {
@@ -84,9 +84,9 @@ export const App = () => {
                       <DragIndicatorIcon style={{marginRight: '1%'}} className="dragHandleSelector" />
                       <Textarea defaultValue={name} placeholder="Task Name" className="taskName" />
                       <ListItemText primary="｜"                            style={{textAlign: "center", marginRight: "auto", marginLeft: "auto"}} />
-                      <Textarea defaultValue={est + " h"} className="taskEst" />
+                      <Textarea defaultValue={est} className="taskEst" />
                       <ListItemText primary="｜"                            style={{textAlign: "center", marginRight: "auto", marginLeft: "auto"}} />
-                      <ListItemText primary={passed + " h"}                 style={{textAlign: "center", width: '9%'}} />
+                      <ListItemText primary={passed}                 style={{textAlign: "center", width: '9%'}} />
                     </ListItem>
                 </Draggable>
               ))}
