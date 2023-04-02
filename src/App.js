@@ -61,8 +61,7 @@ export const App = () => {
   };
 
   document.addEventListener('dblclick', e => {
-    //if(dialogNode.current === null) return;
-    //if(dialogNode.current.contains(e.currentTarget)) return;
+    if(e.target.classList.value !== "") return;
     addTasks()
   })
 
