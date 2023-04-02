@@ -68,7 +68,6 @@ export const App = () => {
   const rightClickOnTask = (id) => {
     console.log(id);
   }
-
   document.addEventListener('dblclick', e => {
     if(e.target.classList.value !== "") return;
     addTasks()
