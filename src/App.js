@@ -51,8 +51,8 @@ export const App = () => {
   }
 
   // タスクの追加を行うメソッド
-  const addTasks = () => {
-    setTasks([...tasks, { id: culcLastId()+1, name: "", est: 0, passed: 0, order: culcLastOrder()+1 }])
+  const addTasks = (type, order) => {
+    setTasks([...tasks, { id: culcLastId()+1, type: type, name: "", est: 0, passed: 0, order: order }])
   };
 
   // タスクのドラッグ＆ドロップを管理
@@ -70,7 +70,7 @@ export const App = () => {
   }
   document.addEventListener('dblclick', e => {
     if(e.target.classList.value !== "") return;
-    addTasks()
+    addTasks(0, culcLastOrder()+1)
   })
 
   // レンダリング後の挙動を管理
