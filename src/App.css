@@ -18,6 +18,10 @@ body {
     background: #E7F6F2;
 }
 
+.dragHandleSelector {
+    margin-right: 1%;
+}
+
 .taskNameParent {
     width: 69.8%;
     background: #A5C9CA !important;
@@ -66,4 +70,10 @@ body {
 .taskPassedChild {
     text-align: center;
     width: 8.7%;
+}
+
+.taskBorder {
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto;
 }

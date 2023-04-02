@@ -97,13 +97,13 @@ export const App = () => {
             <Container dragHandleSelector=".dragHandleSelector" onDrop={onDrop}>
               {tasks.map(({ id, type, name, est, passed }) => (
                 <Draggable key={id}>
-                    <ListItem className={(type === 0) ? "taskParent" : "taskChild"} id={id}>
-                      <DragIndicatorIcon style={{marginRight: '1%'}} className="dragHandleSelector" />
-                      <Textarea defaultValue={name} placeholder="Task Name" className={(type === 0) ? "taskNameParent" : "taskNameChild"} />
-                      <ListItemText primary="｜"                            style={{textAlign: "center", marginRight: "auto", marginLeft: "auto"}} />
-                      <Textarea defaultValue={est} className={(type === 0) ? "taskEstParent" : "taskEstChild"} />
-                      <ListItemText primary="｜"                            style={{textAlign: "center", marginRight: "auto", marginLeft: "auto"}} />
-                      <ListItemText primary={passed} className={(type === 0) ? "taskPassedParent" : "taskPassedChild"} />
+                    <ListItem            className={(type === 0) ? "taskParent" : "taskChild"}             id={id}>
+                      <DragIndicatorIcon className="dragHandleSelector" />
+                      <Textarea          className={(type === 0) ? "taskNameParent" : "taskNameChild"}     defaultValue={name} placeholder="Task Name" />
+                      <ListItemText      className="taskBorder"                                            primary="｜" />
+                      <Textarea          className={(type === 0) ? "taskEstParent" : "taskEstChild"}       defaultValue={est} />
+                      <ListItemText      className="taskBorder"                                            primary="｜" />
+                      <ListItemText      className={(type === 0) ? "taskPassedParent" : "taskPassedChild"} primary={passed} />
                     </ListItem>
                 </Draggable>
               ))}
