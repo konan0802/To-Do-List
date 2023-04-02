@@ -3,3 +3,23 @@ body {
     margin: 0px;
     background-color: #2C3333;
 }
+
+.taskName {
+    width: 69.8%;
+    background: #A5C9CA !important;
+    border-color: #A5C9CA !important;
+    --Textarea-focusedHighlight: #395B64 !important;
+    --Textarea-focusedThickness: var(--joy-focus-thickness, 0.5px) !important;
+}
+
+.taskEst {
+    width: 9.6%;
+    background: #A5C9CA !important;
+    border-color: #A5C9CA !important;
+    --Textarea-focusedHighlight: #395B64 !important;
+    --Textarea-focusedThickness: var(--joy-focus-thickness, 0.5px) !important;
+}
+
+.taskEst textarea {
+    text-align: center;
+}

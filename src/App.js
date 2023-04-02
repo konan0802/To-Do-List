@@ -49,7 +49,7 @@ export const App = () => {
   }
 
   const addTasks = () => {
-    setTasks([...tasks, { id: culcLastId()+1, name: "", est: 0, passed: 0, order: culcLastOrder()+1 }])
+    setTasks([...tasks, { id: culcLastId()+1, name: "", est: null, passed: 0, order: culcLastOrder()+1 }])
   };
 
   const onDrop = ({ removedIndex, addedIndex }) => {
@@ -82,9 +82,9 @@ export const App = () => {
                 <Draggable key={id}>
                     <ListItem style={{marginBottom: '9px', borderRadius: '3px', background: "#A5C9CA"}}>
                       <DragIndicatorIcon style={{marginRight: '1%'}} className="dragHandleSelector" />
-                      <Textarea defaultValue={name} placeholder="Task Name" style={{width: '69.8%', background: "#A5C9CA", borderColor: "#A5C9CA", "--Textarea-focusedHighlight": "#395B64", "--Textarea-focusedThickness": "var(--joy-focus-thickness, 0.5px)"}} />
+                      <Textarea defaultValue={name} placeholder="Task Name" className="taskName" />
                       <ListItemText primary="｜"                            style={{textAlign: "center", marginRight: "auto", marginLeft: "auto"}} />
-                      <ListItemText primary={est + " h"}                    style={{textAlign: "center", width: '9.6%'}} />
+                      <Textarea defaultValue={est + " h"} className="taskEst" />
                       <ListItemText primary="｜"                            style={{textAlign: "center", marginRight: "auto", marginLeft: "auto"}} />
                       <ListItemText primary={passed + " h"}                 style={{textAlign: "center", width: '9%'}} />
                     </ListItem>
