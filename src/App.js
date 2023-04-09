@@ -6,6 +6,9 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Textarea from '@mui/joy/Textarea';
+//import ContextMenu from 'src/ContextMenu';
+//import MenuItem from 'src/MenuItem';
+import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
 //import TextField from '@mui/joy/TextField';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 
@@ -120,14 +123,16 @@ export const App = () => {
             <Container dragHandleSelector=".dragHandleSelector" onDrop={onDrop}>
               {tasks.map(({ id, type, name, est, passed }) => (
                 <Draggable key={id}>
+                  <ContextMenuTrigger id="aaa">
                     <ListItem            className={(type === 0) ? "taskParent" : "taskChild"}             id={id}>
-                      <DragIndicatorIcon className="dragHandleSelector" />
-                      <Textarea          className={(type === 0) ? "taskNameParent" : "taskNameChild"}     defaultValue={name} placeholder="Task Name" />
-                      <ListItemText      className="taskBorder"                                            primary="｜" />
-                      <Textarea          className={(type === 0) ? "taskEstParent" : "taskEstChild"}       defaultValue={est} />
-                      <ListItemText      className="taskBorder"                                            primary="｜" />
-                      <ListItemText      className={(type === 0) ? "taskPassedParent" : "taskPassedChild"} primary={passed} />
+                        <DragIndicatorIcon className="dragHandleSelector" />
+                        <Textarea          className={(type === 0) ? "taskNameParent" : "taskNameChild"}     defaultValue={name} placeholder="Task Name" />
+                        <ListItemText      className="taskBorder"                                            primary="｜" />
+                        <Textarea          className={(type === 0) ? "taskEstParent" : "taskEstChild"}       defaultValue={est} />
+                        <ListItemText      className="taskBorder"                                            primary="｜" />
+                        <ListItemText      className={(type === 0) ? "taskPassedParent" : "taskPassedChild"} primary={passed} />
                     </ListItem>
+                  </ContextMenuTrigger>
                 </Draggable>
               ))}
             </Container>
@@ -141,6 +146,13 @@ export const App = () => {
         <Box style={{height: 32, width: '1%',   marginLeft: '0.6%', marginRight: '0.6%', marginTop: 30, marginBottom: 8, float: "left", fontSize: 16, fontWeight: "bold", textAlign: "center", color: "#E7F6F2"}}> / </Box>
         <Box style={{height: 32, width: '8%',   marginRight: '9%',                       marginTop: 30, marginBottom: 8, float: "left", fontSize: 16, fontWeight: "bold", textAlign: "center", color: "#E7F6F2"}}>{passedTotal} h</Box>
       </div>
+
+      <ContextMenu id="aaa">
+          <MenuItem>Menu Item 1</MenuItem>
+          <MenuItem>Menu Item 2</MenuItem>
+          <MenuItem divider />
+          <MenuItem>Menu Item 3</MenuItem>
+      </ContextMenu>
     </>
   );
 }
