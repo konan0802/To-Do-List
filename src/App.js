@@ -88,6 +88,8 @@ export const App = () => {
   const rightClickOnTask = (id) => {
     console.log(id);
   }
+
+  // ダブルクリックでタスク追加
   document.addEventListener('dblclick', e => {
     if(e.target.classList.value !== "") return;
     addTasks(0, culcLastOrder()+1)
@@ -95,7 +97,8 @@ export const App = () => {
 
   // レンダリング後の挙動を管理
   useEffect(() => {
-    var triggerTasks = Array.from( document.getElementsByClassName('taskEach'));
+    var triggerTasks = Array.from(document.getElementsByClassName('taskParent'));
+    triggerTasks = triggerTasks.concat(Array.from(document.getElementsByClassName('taskChild')));
     triggerTasks.forEach(function(target) {
       target.addEventListener('contextmenu', e => {
         rightClickOnTask(e.currentTarget.id);
