@@ -24,7 +24,11 @@ export const App = () => {
     { id: 6, type: 0, name: "初期6行目", est: 5, passed: 2, order: 5 }
   ]);
 
+  // オリジナルメニューを開くListItemの要素
   const [anchorEl, setAnchorEl] = useState(null);
+  // オリジナルメニューを開く位置
+  const [anchorPosition, setAnchorPosition] = useState(null);
+  // オリジナルメニューで選択されているタスクのid
   const [selectedTaskId, setSelectedTaskId] = useState(null);
 
   let estTotal = tasks.reduce((sum, i) => sum + i.est, 0);
@@ -62,7 +66,6 @@ export const App = () => {
   // タスクの削除を行うメソッド
   const handleDelete = () => {
     setTasks(tasks.filter(task => task.id !== selectedTaskId));
-    console.log(selectedTaskId);
     setSelectedTaskId(null);
     handleClose();
   };
@@ -78,15 +81,16 @@ export const App = () => {
 
   // オリジナルメニュー
   const handleContextMenu = (event, taskId) => {
-    console.log(taskId);
     event.preventDefault();
     setSelectedTaskId(taskId);
     setAnchorEl(event.currentTarget);
+    setAnchorPosition({ left: event.clientX, top: event.clientY });
   };
 
   // オリジナルメニューのクローズ
   const handleClose = () => {
     setAnchorEl(null);
+    setAnchorPosition(null);
   };
 
   // ダブルクリックでタスク追加
@@ -110,7 +114,7 @@ export const App = () => {
             <Container dragHandleSelector=".dragHandleSelector" onDrop={onDrop}>
               {tasks.map(({ id, type, name, est, passed }) => (
                 <Draggable key={id}>
-                  <ListItem            className={(type === 0) ? "taskParent" : "taskChild"}             id={id} onContextMenu={(event) => handleContextMenu(event, id)}>
+                  <ListItem            id={id} className={(type === 0) ? "taskParent" : "taskChild"} onContextMenu={(event) => handleContextMenu(event, id)}>
                     <DragIndicatorIcon className="dragHandleSelector" />
                     <Textarea          className={(type === 0) ? "taskNameParent" : "taskNameChild"}     defaultValue={name} placeholder="Task Name" />
                     <ListItemText      className="taskBorder"                                            primary="｜" />
@@ -134,14 +138,8 @@ export const App = () => {
 
       <Menu
         anchorEl={anchorEl}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
+        anchorPosition={anchorPosition}
+        anchorReference="anchorPosition"
         keepMounted
         open={Boolean(anchorEl)}
         onClose={handleClose}
