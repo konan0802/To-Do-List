@@ -25,6 +25,7 @@ export const App = () => {
   ]);
 
   const [anchorEl, setAnchorEl] = useState(null);
+  const [selectedTaskId, setSelectedTaskId] = useState(null);
 
   let estTotal = tasks.reduce((sum, i) => sum + i.est, 0);
   let passedTotal = tasks.reduce((sum, i) => sum + i.passed, 0);
@@ -58,6 +59,14 @@ export const App = () => {
     setTasks([...tasks, { id: culcLastId()+1, type: type, name: "", est: 0, passed: 0, order: order }])
   };
 
+  // タスクの削除を行うメソッド
+  const handleDelete = () => {
+    setTasks(tasks.filter(task => task.id !== selectedTaskId));
+    console.log(selectedTaskId);
+    setSelectedTaskId(null);
+    handleClose();
+  };
+
   // タスクのドラッグ＆ドロップを管理
   const onDrop = ({ removedIndex, addedIndex }) => {
     const updater = (tasks) =>
@@ -68,9 +77,11 @@ export const App = () => {
   };
 
   // オリジナルメニュー
-  const handleContextMenu = (event) => {
+  const handleContextMenu = (event, taskId) => {
+    console.log(taskId);
     event.preventDefault();
-    setAnchorEl({ left: event.clientX, top: event.clientY });
+    setSelectedTaskId(taskId);
+    setAnchorEl(event.currentTarget);
   };
 
   // オリジナルメニューのクローズ
@@ -99,7 +110,7 @@ export const App = () => {
             <Container dragHandleSelector=".dragHandleSelector" onDrop={onDrop}>
               {tasks.map(({ id, type, name, est, passed }) => (
                 <Draggable key={id}>
-                  <ListItem            className={(type === 0) ? "taskParent" : "taskChild"}             id={id} onContextMenu={handleContextMenu}>
+                  <ListItem            className={(type === 0) ? "taskParent" : "taskChild"}             id={id} onContextMenu={(event) => handleContextMenu(event, id)}>
                     <DragIndicatorIcon className="dragHandleSelector" />
                     <Textarea          className={(type === 0) ? "taskNameParent" : "taskNameChild"}     defaultValue={name} placeholder="Task Name" />
                     <ListItemText      className="taskBorder"                                            primary="｜" />
@@ -123,13 +134,19 @@ export const App = () => {
 
       <Menu
         anchorEl={anchorEl}
-        anchorPosition={anchorEl}
-        anchorReference="anchorPosition"
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
         keepMounted
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>タスクの削除</MenuItem>
+        <MenuItem onClick={handleDelete}>タスクの削除</MenuItem>
       </Menu>
 
     </>
