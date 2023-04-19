@@ -60,7 +60,18 @@ export const App = () => {
 
   // タスクの追加を行うメソッド
   const addTasks = (type, order) => {
-    setTasks([...tasks, { id: culcLastId()+1, type: type, name: "", est: 0, passed: 0, order: order }])
+    // 重複したorderのtasks要素が生まれないようにorderを更新
+    const updatedTasks = tasks.map(t => {
+      if (t.order >= order) {
+        t.order += 1;
+      }
+      return t;
+    });
+  
+    // タスクを追加
+    const newTask = { id: culcLastId() + 1, type: type, name: "", est: 0, passed: 0, order: order };
+    const sortedTasks = [...updatedTasks, newTask].sort((a, b) => a.order - b.order);
+    setTasks(sortedTasks);
   };
 
   // タスクの削除を行うメソッド ※子タスクも連動して削除
@@ -113,9 +124,18 @@ export const App = () => {
   // ダブルクリックでタスク追加
   document.addEventListener('dblclick', e => {
     if(e.target.classList.value !== "") return;
-    addTasks(0, culcLastOrder()+1)
-  })
+    addTasks(0, culcLastOrder()+1);
+  });
 
+  // タスク上で改行を行うことにより子タスクを追加
+  const handleTextareaChange = (event, taskId) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      const task = tasks.find(task => task.id === taskId);
+      const newOrder = task.order + 1;
+      addTasks(1, newOrder);
+    }
+  };
 
   return (
     <>
@@ -133,7 +153,12 @@ export const App = () => {
                 <Draggable key={id}>
                   <ListItem            id={id} className={(type === 0) ? "taskParent" : "taskChild"} onContextMenu={(event) => handleContextMenu(event, id)}>
                     <DragIndicatorIcon className="dragHandleSelector" />
-                    <Textarea          className={(type === 0) ? "taskNameParent" : "taskNameChild"}     defaultValue={name} placeholder="Task Name" />
+                    <Textarea
+                      className={(type === 0) ? "taskNameParent" : "taskNameChild"}
+                      defaultValue={name}
+                      placeholder="Task Name"
+                      onKeyPress={(event) => {handleTextareaChange(event, id);}}
+                    />
                     <ListItemText      className="taskBorder"                                            primary="｜" />
                     <Textarea          className={(type === 0) ? "taskEstParent" : "taskEstChild"}       defaultValue={est} />
                     <ListItemText      className="taskBorder"                                            primary="｜" />
