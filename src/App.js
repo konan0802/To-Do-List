@@ -63,7 +63,7 @@ export const App = () => {
     setTasks([...tasks, { id: culcLastId()+1, type: type, name: "", est: 0, passed: 0, order: order }])
   };
 
-  // タスクの削除を行うメソッド
+  // タスクの削除を行うメソッド ※子タスクも連動して削除
   const handleDelete = () => {
     const taskToDelete = tasks.find(task => task.id === selectedTaskId);
     let tasksToDelete = [taskToDelete];
