@@ -24,6 +24,8 @@ export const App = () => {
     { id: 6, type: 0, name: "初期6行目", est: 5, passed: 2, order: 5 }
   ]);
 
+  const [anchorEl, setAnchorEl] = useState(null);
+
   let estTotal = tasks.reduce((sum, i) => sum + i.est, 0);
   let passedTotal = tasks.reduce((sum, i) => sum + i.passed, 0);
 
@@ -65,13 +67,13 @@ export const App = () => {
       setTasks(updater);
   };
 
-  const [anchorEl, setAnchorEl] = useState(null);
-
+  // オリジナルメニュー
   const handleContextMenu = (event) => {
     event.preventDefault();
     setAnchorEl({ left: event.clientX, top: event.clientY });
   };
 
+  // オリジナルメニューのクローズ
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -91,13 +93,13 @@ export const App = () => {
         <Box className="passedHeader">実績</Box>
       </Box>
 
-      <Box style={{bgcolor: "#2C3333", marginLeft: '8.5%', marginRight: '8.5%', marginTop: 5, clear: "both"}}>
+      <Box className="taskList">
         <nav aria-label="secondary mailbox folders">
           <List>
             <Container dragHandleSelector=".dragHandleSelector" onDrop={onDrop}>
               {tasks.map(({ id, type, name, est, passed }) => (
                 <Draggable key={id}>
-                  <ListItem            className={(type === 0) ? "taskParent" : "taskChild"}             onContextMenu={handleContextMenu}>
+                  <ListItem            className={(type === 0) ? "taskParent" : "taskChild"}             id={id} onContextMenu={handleContextMenu}>
                     <DragIndicatorIcon className="dragHandleSelector" />
                     <Textarea          className={(type === 0) ? "taskNameParent" : "taskNameChild"}     defaultValue={name} placeholder="Task Name" />
                     <ListItemText      className="taskBorder"                                            primary="｜" />

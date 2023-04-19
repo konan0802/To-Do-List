@@ -47,6 +47,14 @@ body {
     color: #395B64
 }
 
+.taskList {
+    background-color: #2C3333;
+    margin-left: 8.5%;
+    margin-right: 8.5%;
+    margin-top: 5px;
+    clear: both;
+}
+
 .taskParent {
     margin-bottom: 9px;
     border-radius: 3px;
@@ -55,7 +63,7 @@ body {
 
 .taskChild {
     width: 93% !important;
-    margin-left: 92px;
+    margin-left: 125px;
     margin-bottom: 9px;
     border-radius: 3px;
     background: #E7F6F2;
@@ -220,7 +228,7 @@ body {
 
 .estTotal {
     height: 32px;
-    width: 8.8%;
+    width: 7.5%;
     margin-left: 2%;
     margin-top: 30px;
     margin-bottom: 8px;
@@ -247,7 +255,7 @@ body {
 
 .passedTotal {
     height: 32px;
-    width: 8%;
+    width: 9.7%;
     margin-right: 9%;
     margin-top: 30px;
     margin-bottom: 8px;
