@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Box from '@mui/material/Box';
 import { Container, Draggable } from "react-smooth-dnd";
 import {arrayMoveImmutable} from 'array-move';
@@ -6,10 +6,8 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Textarea from '@mui/joy/Textarea';
-//import ContextMenu from 'src/ContextMenu';
-//import MenuItem from 'src/MenuItem';
-import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
-//import TextField from '@mui/joy/TextField';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 
 import "./App.css";
@@ -28,26 +26,6 @@ export const App = () => {
 
   let estTotal = tasks.reduce((sum, i) => sum + i.est, 0);
   let passedTotal = tasks.reduce((sum, i) => sum + i.passed, 0);
-
-  // タスク名の更新
-  const updateTaskName = (id, name) => {
-    for (var i = 0, len = tasks.length; i < len; i++) {
-      // idの最大値
-      if (tasks[i].id === id) {
-        tasks[i].name = name;
-      };
-    } 
-  }
-
-  // タスクタイプの更新
-  const updateTaskType = (id, type) => {
-    for (var i = 0, len = tasks.length; i < len; i++) {
-      // idの最大値
-      if (tasks[i].id === id) {
-        tasks[i].type = type;
-      };
-    } 
-  }
 
   // タスク一覧における最後のidを取得
   const culcLastId = () => {
@@ -87,10 +65,16 @@ export const App = () => {
       setTasks(updater);
   };
 
-  // タスクを右クリックした際のメニューを管理
-  const rightClickOnTask = (id) => {
-    console.log(id);
-  }
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleContextMenu = (event) => {
+    event.preventDefault();
+    setAnchorEl({ left: event.clientX, top: event.clientY });
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   // ダブルクリックでタスク追加
   document.addEventListener('dblclick', e => {
@@ -98,24 +82,14 @@ export const App = () => {
     addTasks(0, culcLastOrder()+1)
   })
 
-  // レンダリング後の挙動を管理
-  useEffect(() => {
-    var triggerTasks = Array.from(document.getElementsByClassName('taskParent'));
-    triggerTasks = triggerTasks.concat(Array.from(document.getElementsByClassName('taskChild')));
-    triggerTasks.forEach(function(target) {
-      target.addEventListener('contextmenu', e => {
-        rightClickOnTask(e.currentTarget.id);
-      })
-    });
-  });
 
   return (
     <>
-      <div>
-        <Box style={{height: 32, width: '60.3%', marginLeft: '9%',                   borderBottom: "solid 3px #395B64", marginTop: 75, marginBottom: 8, float: "left", fontSize: 16, fontWeight: "bold", textAlign: "center", color: "#395B64"}}>タスク名</Box>
-        <Box style={{height: 32, width: '8.8%', marginRight: '2%', marginLeft: '2%', borderBottom: "solid 3px #395B64", marginTop: 75, marginBottom: 8, float: "left", fontSize: 16, fontWeight: "bold", textAlign: "center", color: "#395B64"}}>見積</Box>
-        <Box style={{height: 32, width: '8.8%', marginRight: '9%',                   borderBottom: "solid 3px #395B64", marginTop: 75, marginBottom: 8, float: "left", fontSize: 16, fontWeight: "bold", textAlign: "center", color: "#395B64"}}>実績</Box>
-      </div>
+      <Box className="header">
+        <Box className="taskNameHeader">タスク名</Box>
+        <Box className="estHeader">見積</Box>
+        <Box className="passedHeader">実績</Box>
+      </Box>
 
       <Box style={{bgcolor: "#2C3333", marginLeft: '8.5%', marginRight: '8.5%', marginTop: 5, clear: "both"}}>
         <nav aria-label="secondary mailbox folders">
@@ -123,16 +97,14 @@ export const App = () => {
             <Container dragHandleSelector=".dragHandleSelector" onDrop={onDrop}>
               {tasks.map(({ id, type, name, est, passed }) => (
                 <Draggable key={id}>
-                  <ContextMenuTrigger id="aaa">
-                    <ListItem            className={(type === 0) ? "taskParent" : "taskChild"}             id={id}>
-                        <DragIndicatorIcon className="dragHandleSelector" />
-                        <Textarea          className={(type === 0) ? "taskNameParent" : "taskNameChild"}     defaultValue={name} placeholder="Task Name" />
-                        <ListItemText      className="taskBorder"                                            primary="｜" />
-                        <Textarea          className={(type === 0) ? "taskEstParent" : "taskEstChild"}       defaultValue={est} />
-                        <ListItemText      className="taskBorder"                                            primary="｜" />
-                        <ListItemText      className={(type === 0) ? "taskPassedParent" : "taskPassedChild"} primary={passed} />
-                    </ListItem>
-                  </ContextMenuTrigger>
+                  <ListItem            className={(type === 0) ? "taskParent" : "taskChild"}             onContextMenu={handleContextMenu}>
+                    <DragIndicatorIcon className="dragHandleSelector" />
+                    <Textarea          className={(type === 0) ? "taskNameParent" : "taskNameChild"}     defaultValue={name} placeholder="Task Name" />
+                    <ListItemText      className="taskBorder"                                            primary="｜" />
+                    <Textarea          className={(type === 0) ? "taskEstParent" : "taskEstChild"}       defaultValue={est} />
+                    <ListItemText      className="taskBorder"                                            primary="｜" />
+                    <ListItemText      className={(type === 0) ? "taskPassedParent" : "taskPassedChild"} primary={passed} />
+                  </ListItem>
                 </Draggable>
               ))}
             </Container>
@@ -141,18 +113,23 @@ export const App = () => {
       </Box>
 
       <div>
-        <Box style={{height: 32, width: '4%',   marginLeft: '65.5%',                     marginTop: 30, marginBottom: 8, float: "left", fontSize: 16, fontWeight: "bold", textAlign: "right", color: "#E7F6F2"}}>合計：</Box>
-        <Box style={{height: 32, width: '8.8%', marginLeft: '2%',                        marginTop: 30, marginBottom: 8, float: "left", fontSize: 16, fontWeight: "bold", textAlign: "center", color: "#E7F6F2"}}>{estTotal} h</Box>
-        <Box style={{height: 32, width: '1%',   marginLeft: '0.6%', marginRight: '0.6%', marginTop: 30, marginBottom: 8, float: "left", fontSize: 16, fontWeight: "bold", textAlign: "center", color: "#E7F6F2"}}> / </Box>
-        <Box style={{height: 32, width: '8%',   marginRight: '9%',                       marginTop: 30, marginBottom: 8, float: "left", fontSize: 16, fontWeight: "bold", textAlign: "center", color: "#E7F6F2"}}>{passedTotal} h</Box>
+        <Box className="totalLabel">合計：</Box>
+        <Box className="estTotal">{estTotal} h</Box>
+        <Box className="separator"> / </Box>
+        <Box className="passedTotal">{passedTotal} h</Box>
       </div>
 
-      <ContextMenu id="aaa">
-          <MenuItem>Menu Item 1</MenuItem>
-          <MenuItem>Menu Item 2</MenuItem>
-          <MenuItem divider />
-          <MenuItem>Menu Item 3</MenuItem>
-      </ContextMenu>
+      <Menu
+        anchorEl={anchorEl}
+        anchorPosition={anchorEl}
+        anchorReference="anchorPosition"
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+      >
+        <MenuItem onClick={handleClose}>タスクの削除</MenuItem>
+      </Menu>
+
     </>
   );
 }
