@@ -16,12 +16,12 @@ import "./App.css";
 export const App = () => {
 
   const [tasks, setTasks] = useState([
-    { id: 1, type: 0, name: "初期1行目", est: 5, passed: 2, order: 0 },
-    { id: 2, type: 0, name: "初期2行目", est: 5, passed: 2, order: 1 },
-    { id: 3, type: 1, name: "初期2行目の子", est: 10, passed: 2, order: 2 },
-    { id: 4, type: 1, name: "初期2行目の子", est: 5, passed: 2, order: 3 },
-    { id: 5, type: 0, name: "初期5行目", est: 5, passed: 2, order: 4 },
-    { id: 6, type: 0, name: "初期6行目", est: 5, passed: 2, order: 5 }
+    { id: 1, type: 0, name: "タスク１", est: 5, passed: 2, order: 0 },
+    { id: 2, type: 0, name: "タスク２", est: 5, passed: 2, order: 1 },
+    { id: 3, type: 1, name: "タスク２の子１", est: 10, passed: 2, order: 2 },
+    { id: 4, type: 1, name: "タスク２の子２", est: 5, passed: 2, order: 3 },
+    { id: 5, type: 0, name: "タスク３", est: 5, passed: 2, order: 4 },
+    { id: 6, type: 0, name: "タスク４", est: 5, passed: 2, order: 5 }
   ]);
 
   // オリジナルメニューを開くListItemの要素
