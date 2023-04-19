@@ -65,7 +65,24 @@ export const App = () => {
 
   // タスクの削除を行うメソッド
   const handleDelete = () => {
-    setTasks(tasks.filter(task => task.id !== selectedTaskId));
+    const taskToDelete = tasks.find(task => task.id === selectedTaskId);
+    let tasksToDelete = [taskToDelete];
+
+    if (taskToDelete.type === 0) {
+      for (let i = taskToDelete.order + 1; i < tasks.length; i++) {
+        const task = tasks[i];
+
+        if (task.type === 0) {
+          break;
+        }
+
+        if (task.type === 1) {
+          tasksToDelete.push(task);
+        }
+      }
+    }
+
+    setTasks(tasks.filter(task => !tasksToDelete.includes(task)));
     setSelectedTaskId(null);
     handleClose();
   };
