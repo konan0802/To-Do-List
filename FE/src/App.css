@@ -6,7 +6,7 @@ body {
 
 .taskNameHeader {
     height: 32px;
-    width: 60.3%;
+    width: 59.7%;
     margin-left: 9%;
     border-bottom: solid 3px #395B64;
     margin-top: 75px;
@@ -20,9 +20,9 @@ body {
 
 .estHeader {
     height: 32px;
-    width: 8.8%;
-    margin-right: 2%;
-    margin-left: 2%;
+    width: 9.1%;
+    margin-right: 1.5%;
+    margin-left: 1.5%;
     border-bottom: solid 3px #395B64;
     margin-top: 75px;
     margin-bottom: 8px;
@@ -35,7 +35,7 @@ body {
 
 .passedHeader {
     height: 32px;
-    width: 8.8%;
+    width: 9.8%;
     margin-right: 9%;
     border-bottom: solid 3px #395B64;
     margin-top: 75px;
