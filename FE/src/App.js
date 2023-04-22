@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Box from '@mui/material/Box';
 import { Container, Draggable } from "react-smooth-dnd";
 import {arrayMoveImmutable} from 'array-move';
@@ -9,6 +9,8 @@ import Textarea from '@mui/joy/Textarea';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
+
+import {fetchTasks, addTask, updateTask, deleteTask} from "./firestoreApi"
 
 import "./App.css";
 
@@ -31,8 +33,13 @@ export const App = () => {
   // オリジナルメニューで選択されているタスクのid
   const [selectedTaskId, setSelectedTaskId] = useState(null);
 
+  // TODO: 合計値の計算方法
   let estTotal = tasks.reduce((sum, i) => sum + i.est, 0);
   let passedTotal = tasks.reduce((sum, i) => sum + i.passed, 0);
+
+  useEffect(() => {
+    fetchTasks(setTasks);
+  }, []);
 
   // タスク一覧における最後のidを取得
   const culcLastId = () => {
