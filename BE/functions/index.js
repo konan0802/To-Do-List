@@ -3,16 +3,40 @@ const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 admin.initializeApp();
 
-exports.addMessage = functions.https.onRequest(async (req, res) => {
-  const original = req.query.text;
-  const writeResult = await admin.firestore().collection("messages").add({original: original});
-  res.json({result: `Message with ID: ${writeResult.id} added.`});
+const db = admin.firestore();
+
+// タスクの作成
+exports.addTask = functions.https.onCall(async (data, context) => {
+  const newTask = {
+    type: data.type,
+    name: data.name,
+    est: data.est,
+    passed: data.passed,
+    order: data.order,
+  };
+  const docRef = await db.collection("tasks").add(newTask);
+  const doc = await docRef.get();
+  return {...doc.data(), id: doc.id};
 });
 
-exports.makeUppercase = functions.firestore.document("/messages/{documentId}")
-    .onCreate((snap, context) => {
-      const original = snap.data().original;
-      functions.logger.log("Uppercasing", context.params.documentId, original);
-      const uppercase = original.toUpperCase();
-      return snap.ref.set({uppercase}, {merge: true});
-    });
+// タスクの読み込み
+exports.getTasks = functions.https.onRequest(async (req, res) => {
+  const tasksSnapshot = await admin.firestore().collection("tasks").orderBy("order").get();
+  const tasks = [];
+  tasksSnapshot.forEach((doc) => {
+    tasks.push({id: doc.id, ...doc.data()});
+  });
+  res.status(200).send(tasks);
+});
+
+// タスクの更新
+exports.updateTask = functions.https.onCall(async (data, context) => {
+  await db.collection("tasks").doc(data.id).update(data.updates);
+  return {success: true};
+});
+
+// タスクの削除
+exports.deleteTask = functions.https.onCall(async (data, context) => {
+  await db.collection("tasks").doc(data.id).delete();
+  return {success: true};
+});
